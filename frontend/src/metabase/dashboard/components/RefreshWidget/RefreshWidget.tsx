@@ -7,7 +7,7 @@ import { type ActionIconProps, Box, Popover } from "metabase/ui";
 import { RefreshOption } from "./RefreshOption";
 import { RefreshWidgetTarget } from "./RefreshWidgetTarget";
 
-const toSeconds = (minutes: number) => minutes * 60;
+// const toSeconds = (minutes: number) => minutes * 60;
 
 const OPTIONS = [
   {
@@ -16,42 +16,43 @@ const OPTIONS = [
     },
     period: null,
   },
-  {
-    get name() {
-      return t`1 minute`;
-    },
-    period: toSeconds(1),
-  },
-  {
-    get name() {
-      return t`5 minutes`;
-    },
-    period: toSeconds(5),
-  },
-  {
-    get name() {
-      return t`10 minutes`;
-    },
-    period: toSeconds(10),
-  },
-  {
-    get name() {
-      return t`15 minutes`;
-    },
-    period: toSeconds(15),
-  },
-  {
-    get name() {
-      return t`30 minutes`;
-    },
-    period: toSeconds(30),
-  },
-  {
-    get name() {
-      return t`60 minutes`;
-    },
-    period: toSeconds(60),
-  },
+  // Auto-refresh options disabled
+  // {
+  //   get name() {
+  //     return t`1 minute`;
+  //   },
+  //   period: toSeconds(1),
+  // },
+  // {
+  //   get name() {
+  //     return t`5 minutes`;
+  //   },
+  //   period: toSeconds(5),
+  // },
+  // {
+  //   get name() {
+  //     return t`10 minutes`;
+  //   },
+  //   period: toSeconds(10),
+  // },
+  // {
+  //   get name() {
+  //     return t`15 minutes`;
+  //   },
+  //   period: toSeconds(15),
+  // },
+  // {
+  //   get name() {
+  //     return t`30 minutes`;
+  //   },
+  //   period: toSeconds(30),
+  // },
+  // {
+  //   get name() {
+  //     return t`60 minutes`;
+  //   },
+  //   period: toSeconds(60),
+  // },
 ];
 
 export const RefreshWidget = (
