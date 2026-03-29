@@ -408,7 +408,7 @@
   (let [mp    meta/metadata-provider
         query (lib/query
                mp
-               {:constraints {:max-results 10000, :max-results-bare-rows 2000}
+               {:constraints {:max-results 10000, :max-results-bare-rows 10000}
                 :lib/type    :mbql/query
                 :stages      [{:lib/type      :mbql.stage/native
                                :template-tags {"equal"    {:id           "197c0532-e2f8-24be-8d71-757369d3a75f"
