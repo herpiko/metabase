@@ -1,5 +1,6 @@
 import type { TooltipOption } from "echarts/types/dist/shared";
 
+import { alpha } from "metabase/lib/colors/palette";
 import { reactNodeToHtmlString } from "metabase/lib/react-to-html";
 import { EChartsTooltip } from "metabase/visualizations/components/ChartTooltip/EChartsTooltip";
 import type { ComputedVisualizationSettings } from "metabase/visualizations/types";
@@ -55,20 +56,37 @@ export const getTooltipOption = (
 ): TooltipOption => {
   return {
     ...getTooltipBaseOption(containerRef),
-    trigger: "item",
+    trigger: "axis",
+    axisPointer: {
+      type: "cross",
+      crossStyle: {
+        type: "solid",
+        width: 1,
+        color: alpha("black", 0.25),
+      },
+      axis: "auto",
+    },
     formatter: (params) => {
-      if (Array.isArray(params)) {
+      if (!Array.isArray(params) || params.length === 0) {
         return "";
       }
 
-      const { dataIndex, seriesId } = params;
+      // When using axis trigger with cross pointer, params is an array of all series at that axis point
+      // Filter out special series (timeline events and goal lines)
+      const validParams = params.filter(
+        (param) =>
+          param.seriesId !== TIMELINE_EVENT_SERIES_ID &&
+          param.seriesId !== GOAL_LINE_SERIES_ID,
+      );
 
-      if (
-        seriesId === TIMELINE_EVENT_SERIES_ID ||
-        seriesId === GOAL_LINE_SERIES_ID
-      ) {
+      if (validParams.length === 0) {
         return "";
       }
+
+      // With cross pointer, the first valid param is the one closest to the cursor
+      // ECharts automatically orders them by proximity when using cross axis pointer
+      const closestParam = validParams[0];
+      const { dataIndex, seriesId } = closestParam;
 
       return reactNodeToHtmlString(
         <ChartItemTooltip
